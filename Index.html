@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      color: #374151;
+      margin: 0;
+      padding-top: 0;
+    }
+
+    .header-banner {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .header-banner::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(37, 99, 235, 0.55);
+      z-index: 1;
+      border-radius: 0;
+    }
+
+    .header-banner-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      font-weight: 700;
+      font-size: 1.7rem;
+      line-height: 1.4;
+      font-style: italic;
+      letter-spacing: 1.1px;
+    }
+
+    .header-banner-content span.author {
+      display: block;
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: 400;
+      font-style: normal;
+      opacity: 0.85;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: none;
+    }
+
+    .section-title {
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      color: #2563EB;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .about-img {
+      width: 280px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+      margin-bottom: 1.5rem;
+    }
+
+    .card {
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
+      border-radius: 12px;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+    }
+
+    .project-img {
+      width: 100%;
+      aspect-ratio: 5 / 2;
+      object-fit: cover;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    footer {
+      background-color: #2563EB;
+      color: white;
+      padding: 1rem 0;
+      margin-top: 3rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .bubble-section {
+      background-color: #e7ecf3;
+      padding: 3rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .bubble-section form {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      box-shadow: none;
+    }
+
+    button {
+      background-color: #2563EB;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1.5rem;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #1e40af;
+    }
+
+    #how-i-work .qualities {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: nowrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    #how-i-work .quality {
+      flex: 1;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    #how-i-work .quality img {
+      filter: brightness(0) invert(0.3);
+      transition: filter 0.3s ease;
+      margin-bottom: 0.6rem;
+      width: 48px;
+      height: 48px;
+    }
+
+    #how-i-work .quality img:hover {
+      filter: brightness(0) invert(1);
+      cursor: pointer;
+    }
+
+    #how-i-work .quality p {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    #how-i-work .quality p strong {
+      color: #2563EB;
+    }
+
+    @media (max-width: 767px) {
+      #how-i-work .qualities {
+        flex-wrap: wrap;
+      }
+
+      #how-i-work .quality {
+        flex: 0 0 45%;
+        margin-bottom: 1.5rem;
+      }
+
+      .about-img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    #scroll-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: rgba(37, 99, 235, 0.95);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 1.2px;
+      font-size: 1.3rem;
+      z-index: 9999;
+      padding: 0 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    #scroll-banner.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #scroll-banner .container {
+      display: flex;
+      width: 100%;
+      max-width: 1100px;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    #scroll-banner .title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      font-weight: 900;
+      white-space: nowrap;
+      pointer-events: none; 
+    }
+
+    #scroll-banner nav {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: auto;
+      z-index: 10;
+      position: relative;
+      align-items: center; 
+    }
+
+    #scroll-banner nav a {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+      line-height: 1.2;
+      display: flex;
+      align-items: center; 
+    }
+
+    #scroll-banner nav a:hover {
+      background-color: rgba(255 255 255 / 0.2);
+    }
+
+    #scroll-banner nav .dropdown {
+      position: relative;
+      display: flex;
+      align-items: center; 
+    }
+
+    #scroll-banner nav .dropdown > a::after {
+      content: none;
+    }
+
+    #scroll-banner nav .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #2563EB;
+      min-width: 180px;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      z-index: 20;
+      padding: 0.5rem 0;
+    }
+
+    #scroll-banner nav .dropdown-menu a {
+      display: block;
+      padding: 8px 16px;
+      color: white;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+    }
+
+    #scroll-banner nav .dropdown-menu a:hover {
+      background-color: rgba(255 255 255 / 0.3);
+    }
+
+    #scroll-banner nav .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen Banner with Quote -->
+  <section class="header-banner" aria-label="Inspirational Quote Banner">
+    <div class="header-banner-content">
+      “The art challenges the technology and the technology inspires the art.”
+      <span class="author">— John Lasseter</span>
+    </div>
+  </section>
+
+  <div id="scroll-banner" aria-label="Sticky Navigation Banner">
+    <div class="container">
+      <div class="title">My Portfolio</div>
+      <nav>
+        <a href="#about">About Me</a>
+        <div class="dropdown">
+          <a href="#projects" aria-haspopup="true" aria-expanded="false">My Projects</a>
+          <div class="dropdown-menu" aria-label="Project list">
+            <a href="#projects" tabindex="0">Service Website</a>
+            <a href="#projects" tabindex="0">Mini Game</a>
+            <a href="#projects" tabindex="0">E-commerce Site</a>
+            <a href="#projects" tabindex="0">Data Visualization</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 2rem;">
+
+    <!-- About Me -->
+    <section id="about" class="mb-5 mt-4">
+      <h2 class="section-title">About Me</h2>
+      <div class="row align-items-center">
+        <div class="col-md-8 d-flex justify-content-center">
+          <div style="max-width: 500px;">
+            <p>
+              I'm a student learning web design and user interface development. I enjoy crafting simple,
+              accessible, and meaningful digital experiences that blend aesthetics with functionality.
+            </p>
+            <p>
+              My goal is to grow into a thoughtful designer who puts users first and builds products that make people’s lives better.
+            </p>
+            <a href="#" class="btn btn-outline-primary mt-3">Get My Resume</a>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="https://via.placeholder.com/280x280.png?text=Your+Photo" alt="Your Photo" class="about-img" />
+        </div>
+      </div>
+    </section>
+
+    <!-- How I Work -->
+    <section id="how-i-work" class="bubble-section">
+        <h2 class="section-title">How I Work</h2>
+        <p class="text-center mb-4" style="max-width: 700px; margin: 0 auto;">
+          I’m passionate about growing as a designer and developer by combining user empathy with practical skills.
+          Here’s how I approach my work every day to deliver thoughtful, user-focused solutions.
+        </p>
+  
+        <div class="qualities">
+          <div class="quality">
+            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/person-check.svg" alt="User-Centered" />
+            <p><strong>User-Centered:</strong> I create intuitive, accessible designs based on real user needs.</p>
+          </div>
+          <div class="quality">
+            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/people.svg" alt="Collaborative" />
+            <p><strong>Collaborative:</strong> I value teamwork and actively seek feedback for continuous improvement.</p>
+          </div>
+          <div class="quality">
+            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/gear.svg" alt="Problem Solver" />
+            <p><strong>Problem Solver:</strong> I break down complex challenges and find creative solutions.</p>
+          </div>
+          <div class="quality">
+            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/book.svg" alt="Continuous Learner" />
+            <p><strong>Continuous Learner:</strong> I stay updated with trends and tools to improve every day.</p>
+          </div>
+        </div>
+      </section>
+
+    <!-- Future Projects -->
+    <section id="projects" class="mb-5">
+        <h2 class="section-title">Future Projects</h2>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+  
+          <div class="col">
+            <div class="card">
+              <img src="https://via.placeholder.com/400x160?text=Service+Site" class="card-img-top project-img" alt="Service Website" />
+              <div class="card-body">
+                <h5 class="card-title">Service Website</h5>
+                <p class="card-text">A website for a service business such as a hairdresser or bike repair shop. Coming soon!</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col">
+            <div class="card">
+              <img src="https://via.placeholder.com/400x160?text=Mini+Game" class="card-img-top project-img" alt="Mini Game" />
+              <div class="card-body">
+                <h5 class="card-title">Mini Game</h5>
+                <p class="card-text">A small browser game that will demonstrate fun interactivity and user engagement.</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col">
+            <div class="card">
+              <img src="https://via.placeholder.com/400x160?text=E-commerce" class="card-img-top project-img" alt="E-commerce Site" />
+              <div class="card-body">
+                <h5 class="card-title">E-commerce Site</h5>
+                <p class="card-text">A simple online store showcasing products, shopping cart, and checkout flow.</p>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col">
+            <div class="card">
+              <img src="https://via.placeholder.com/400x160?text=Data+Viz" class="card-img-top project-img" alt="Data Visualization" />
+              <div class="card-body">
+                <h5 class="card-title">Data Visualization</h5>
+                <p class="card-text">Interactive charts and graphs to visualize datasets with modern techniques.</p>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </section>
+  
+    </div>
+    
+    <!-- Contact Me -->
+    <section id="contact" class="bubble-section">
+        <div class="container">
+          <h2 class="section-title">Contact Me</h2>
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Your name" />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" placeholder="name@example.com" />
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="4" placeholder="Your message..."></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      &copy; 2025 Your Name. All rights reserved.
+    </footer>
+  
+    <script>
+      const scrollBanner = document.getElementById('scroll-banner');
+      const heroHeight = document.querySelector('.header-banner').offsetHeight;
+  
+      window.addEventListener('scroll', () => {
+        if(window.scrollY > heroHeight - 60){
+          scrollBanner.classList.add('visible');
+        } else {
+          scrollBanner.classList.remove('visible');
+        }
+      });
+    </script>
+  
+  </body>
+  </html>
